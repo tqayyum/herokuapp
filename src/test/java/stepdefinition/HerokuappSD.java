@@ -12,7 +12,7 @@ public class HerokuappSD {
     private HerokuPage heroku = new HerokuPage();
 
     @Given("^I am on home page$")
-    public void Homepage() { }
+    public void homePage() { }
 
     //@heroku-1-search
     @When("^I search on top search bar with text \"(.+)\"$")
@@ -33,4 +33,19 @@ public class HerokuappSD {
 
     @Then("^I verify (.+) button is displayed$")
     public void verifyLogoutIsDisplayed(String logout) { heroku.verifyLogout(logout); }
+
+    //@heroku-3-valid-registration
+    @Given("^I am on registration page$")
+    public void registrationPage() { heroku.clickOnJoin(); }
+
+    @When("^I enter name as \"(.+)\" email as \"(.+)\" password as \"(.+)\"$")
+    public void enterUserInfo (String usr, String email, String pswrd) {
+        heroku.enterInfo(usr, email, pswrd);
+    }
+
+    @And("^I click 'submit' button$")
+    public void clickSubmitButton() { heroku.clickOnSubmitButton(); }
+
+    @Then("^I am signed-in as a new user$")
+    public void verifyValidRegistration() { heroku.verifyRegistration(); }
 }
