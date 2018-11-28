@@ -11,6 +11,7 @@ public class HerokuPage extends BasePage {
     StringUtil stringUtil = new StringUtil();
 
     private By topInput = By.xpath("//input[@id='aa-search-input']");
+    private By autoComplete = By.xpath("//span[@id='algolia-autocomplete-listbox-0']");
     private By signIn = By.xpath("//a[contains(text(),'Sign In')]");
     private By emailInput = By.xpath("//input[@id='email']");
     private By password = By.xpath("//input[@id='password']");
@@ -23,7 +24,9 @@ public class HerokuPage extends BasePage {
     private By text = By.xpath("//div[@class='alert alert-success alert-dismissible']");
 
     //@heroku-1-search
-    public void sendText(String expectedText) { sendText(topInput, expectedText); }
+    public void setTextToSearch(String expectedText) { sendText(topInput, expectedText); }
+
+    public void verifyAutoComplete(String expectedText) { setDropDownValue(autoComplete, expectedText);}
 
     //heroku-2-login
     public void clickOnSignIn () { clickOn(signIn); }
@@ -50,5 +53,7 @@ public class HerokuPage extends BasePage {
         String existingAccount = getText(text);
         stringUtil.compareText(text, existingAccount);
     }
+
+    //@heroku-4-invalid-email
 
 }

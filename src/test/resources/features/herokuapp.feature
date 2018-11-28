@@ -21,3 +21,15 @@ Feature: Heroku search Feature
       When I enter name as "testuser" email as "test@test.com" password as "test12345"
       And I click 'submit' button
       Then  I am signed-in as a new user
+
+    @heroku-4-invalid-email
+    Scenario Outline: Verify invalid email on registration
+      Given I am on registration page
+      When I enter name as "testuser" email as <email> password as "test12345"
+      And I click 'submit' button
+      Then  I verify invalid email address
+
+      Examples:
+      | email |
+      | test.com      |
+      | test@test.com      |

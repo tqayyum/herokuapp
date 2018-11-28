@@ -16,10 +16,10 @@ public class HerokuappSD {
 
     //@heroku-1-search
     @When("^I search on top search bar with text \"(.+)\"$")
-    public void enterText(String expectedText) { heroku.sendText(expectedText);}
+    public void enterText(String expectedText) { heroku.setTextToSearch(expectedText);}
 
     @Then("^I verify \"(.+)\" as displayed result$")
-    public void verifyText() { }
+    public void verifyText(String expectedText) { heroku.verifyAutoComplete(expectedText);}
 
     //heroku-2-login
     @When("^I enter username as “(.+)” and password as “(.+)”$")
@@ -48,4 +48,13 @@ public class HerokuappSD {
 
     @Then("^I am signed-in as a new user$")
     public void verifyValidRegistration() { heroku.verifyRegistration(); }
+
+    //@heroku-4-invalid-email
+    @When("^I enter name as \"(.+)\" email as <email> password as \"(.+)\"$")
+    public void enterInvalidEmail (String usr, String email, String pswrd) {
+        heroku.enterInfo(usr, email, pswrd);
+    }
+
+    @Then("^I verify invalid email address$")
+    public void invalidEmail() { }
 }
