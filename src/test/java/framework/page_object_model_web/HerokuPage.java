@@ -6,9 +6,11 @@ import org.testng.Assert;
 import util.DateUtil;
 import util.StringUtil;
 
-public class HerokuappPage extends BasePage {
+public class HerokuPage extends BasePage {
     DateUtil dateUtil = new DateUtil();
     StringUtil stringUtil = new StringUtil();
 
+    private By topInput = By.xpath("//input[@id='aa-search-input']");
 
+    public void sendText(String expectedText) { sendText(topInput, expectedText);}
 }
