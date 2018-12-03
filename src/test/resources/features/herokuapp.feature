@@ -33,3 +33,10 @@ Feature: Heroku Feature
       | email |
       | test.com |
       | test@test@test.com |
+
+    @heroku-5-total-number-post
+    Scenario: Verify the total number of posts
+      Then I verify 94 total post is displayed
+      And I verify all post has price tag
+      And I verify all post has title
+      And  I verify all post has displayed image

@@ -55,20 +55,28 @@ public class HerokuSD {
 
     //*******************************************************
     //@heroku-4-invalid-email
-
     @When("^I enter name as \"([^\"]*)\" email as \"([^\"]*)\" password as \"([^\"]*)\" test$")
     public void enterInvalidEmailInfo (String usr, String email, String pswrd) {
         System.out.println("foo");
         heroku.clickOnJoin();
         heroku.enterInvalidEmail(usr, email, pswrd);
         heroku.clickOnSubmitButton();
-        throw new PendingException();
     }
 
     @Then("^I verify invalid email address$")
-    public void invalidEmail() {
-        heroku.verifyInvalidEmailMgs();
-    }
+    public void invalidEmail() { heroku.verifyInvalidEmailMgs(); }
 
+    //*******************************************************
+    //heroku-5-total-number-post
+    @Then("^I verify (\\d+) total post is displayed$")
+    public void verifyTotalPost(int numPost) { heroku.verifyNumInElement(numPost); }
 
+    @And("^I verify all post has price tag$")
+    public void verifyAllPostHasPriceTag() { heroku.verifyAllPriceTag(); }
+
+    @And("^I verify all post has title$")
+    public void verifyAllPostHasTitle() { heroku.verifyAllTitle(); }
+
+    @And("^I verify all post has displayed image$")
+    public void verifyAllPostHasDisplayedImage() { heroku.verifyAllImage(); }
 }

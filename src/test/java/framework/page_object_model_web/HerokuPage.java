@@ -2,9 +2,13 @@ package framework.page_object_model_web;
 
 import framework.actions_web.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import stepdefinition.SharedSD;
 import util.DateUtil;
 import util.StringUtil;
+
+import java.util.List;
 
 public class HerokuPage extends BasePage {
     DateUtil dateUtil = new DateUtil();
@@ -22,6 +26,11 @@ public class HerokuPage extends BasePage {
     private By regEmail = By.xpath("//input[@name='email']");
     private By regPassword = By.xpath("//input[@name='password']");
     private By successfulMessage = By.xpath("//div[@class='alert alert-success alert-dismissible']");
+    private By numOfPost = By.xpath("//div[@class='row']//descendant::div[@class='gig-card']");
+    private By numOfImage = By.xpath("//div[@class='row']//descendant::img");
+    private By numOfTitle = By.xpath("//div[@class='row']//descendant::h4");
+    private By numOfPrice = By.xpath("//div[@class='row']//descendant::h3");
+
 
     //@heroku-1-search
     public void setTextToSearch(String expectedText) { sendText(topInput, expectedText); }
@@ -64,9 +73,15 @@ public class HerokuPage extends BasePage {
         sendText(regPassword, pswrd);
     }
 
-    public void verifyInvalidEmailMgs() {
-        switchToWindow(1);
+    public void verifyInvalidEmailMgs() { }
 
-    }
+    //*******************************************************
+    //heroku-5-total-number-post
+    public void verifyNumInElement(int postNum) { Assert.assertTrue(postNum == numOfAssets(numOfPost)); }
 
+    public void verifyAllPriceTag() { assetsIsDisplayed(numOfPrice); }
+
+    public void verifyAllTitle() { assetsIsDisplayed(numOfTitle); }
+
+    public void verifyAllImage() { assetsIsDisplayed(numOfImage); }
 }
