@@ -21,13 +21,14 @@ public class HerokuPage extends BasePage {
     private By regUsername = By.xpath("//input[@name='username']");
     private By regEmail = By.xpath("//input[@name='email']");
     private By regPassword = By.xpath("//input[@name='password']");
-    private By text = By.xpath("//div[@class='alert alert-success alert-dismissible']");
+    private By successfulMessage = By.xpath("//div[@class='alert alert-success alert-dismissible']");
 
     //@heroku-1-search
     public void setTextToSearch(String expectedText) { sendText(topInput, expectedText); }
 
     public void verifyAutoComplete(String expectedText) { setDropDownValue(autoComplete, expectedText);}
 
+    //*******************************************************
     //heroku-2-login
     public void clickOnSignIn () { clickOn(signIn); }
 
@@ -40,6 +41,7 @@ public class HerokuPage extends BasePage {
 
     public void verifyLogout(String text) { setDropDownValue(profile, text);}
 
+    //*******************************************************
     //@heroku-3-valid-registration
     public void clickOnJoin() { clickOn(join); }
 
@@ -50,10 +52,21 @@ public class HerokuPage extends BasePage {
     }
 
     public void verifyRegistration() {
-        String existingAccount = getText(text);
-        stringUtil.compareText(text, existingAccount);
+        String existingAccount = getText(successfulMessage);
+        stringUtil.compareText(successfulMessage, existingAccount);
     }
 
+    //*******************************************************
     //@heroku-4-invalid-email
+    public void enterInvalidEmail(String usr, String email, String pswrd) {
+        sendText(regUsername, usr);
+        sendText(regEmail, email);
+        sendText(regPassword, pswrd);
+    }
+
+    public void verifyInvalidEmailMgs() {
+        switchToWindow(1);
+
+    }
 
 }

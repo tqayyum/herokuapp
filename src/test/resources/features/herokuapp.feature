@@ -1,5 +1,5 @@
 @heroku-regression
-Feature: Heroku search Feature
+Feature: Heroku Feature
 
   Background:
     Given I am on home page
@@ -25,11 +25,10 @@ Feature: Heroku search Feature
     @heroku-4-invalid-email
     Scenario Outline: Verify invalid email on registration
       Given I am on registration page
-      When I enter name as "testuser" email as <email> password as "test12345"
+      When I enter name as "testuser" email as "<email>" password as "test12345" test
       And I click 'submit' button
       Then  I verify invalid email address
 
       Examples:
       | email |
-      | test.com      |
-      | test@test.com      |
+      | test.com |
