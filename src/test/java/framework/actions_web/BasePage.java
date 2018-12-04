@@ -32,7 +32,7 @@ public class BasePage {
                 .ignoring(StaleElementReferenceException.class)
                 .withMessage("Webdriver waited for 15 seconds but still could not find the element therefore Timeout Exception has been thrown");
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver){
+            public WebElement apply(WebDriver driver) {
                 return driver.findElement(locator);
             }
         });
@@ -40,14 +40,14 @@ public class BasePage {
     }
 
     //This method is to click on an element
-	public void clickOn(By locator) {
-		try {
-			webAction(locator).click();
-		} catch (NoSuchElementException e) {
-			Assert.fail("Element is not found with this locator: " + locator.toString());
-			e.printStackTrace();
-		}
-	}
+    public void clickOn(By locator) {
+        try {
+            webAction(locator).click();
+        } catch (NoSuchElementException e) {
+            Assert.fail("Element is not found with this locator: " + locator.toString());
+            e.printStackTrace();
+        }
+    }
 
     public void clearOn(By locator) {
         try {
@@ -58,29 +58,29 @@ public class BasePage {
         }
     }
 
-	//This method is to send text from an element
-	public void sendText(By locator, String text) {
-		try {
-			webAction(locator).sendKeys(text);
-		} catch (NoSuchElementException e) {
-			Assert.fail("Element is not found with this locator: " + locator.toString());
-			e.printStackTrace();
-		}
-	}
+    //This method is to send text from an element
+    public void sendText(By locator, String text) {
+        try {
+            webAction(locator).sendKeys(text);
+        } catch (NoSuchElementException e) {
+            Assert.fail("Element is not found with this locator: " + locator.toString());
+            e.printStackTrace();
+        }
+    }
 
-	//This method is a get the text of a an element
-	public String getText(By locator) {
-		String text = null;
-		try {
-			text = webAction(locator).getText();
-		} catch (NoSuchElementException e) {
-			Assert.fail("Element is not found with this locator: " + locator.toString());
-			e.printStackTrace();
-		}
-		return text;
-	}
+    //This method is a get the text of a an element
+    public String getText(By locator) {
+        String text = null;
+        try {
+            text = webAction(locator).getText();
+        } catch (NoSuchElementException e) {
+            Assert.fail("Element is not found with this locator: " + locator.toString());
+            e.printStackTrace();
+        }
+        return text;
+    }
 
-	//This method is to select in a dropdown with an array
+    //This method is to select in a dropdown with an array
     public void setDropDownValue(By locator, String expectedText) {
         try {
             List<WebElement> options = SharedSD.getDriver().findElements(locator);
@@ -90,6 +90,32 @@ public class BasePage {
                     break;
                 }
             }
+        } catch (NoSuchElementException e) {
+            Assert.fail("Element is not found with this locator: " + locator.toString());
+            e.printStackTrace();
+        }
+    }
+
+    public int numOfAssets(By locator) {
+        int result = 0;
+        try {
+            List<WebElement> options = SharedSD.getDriver().findElements(locator);
+            result = options.size();
+        } catch (NoSuchElementException e) {
+            Assert.fail("Element is not found with this locator: " + locator.toString());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void assetsIsDisplayed(By locator) {
+        try {
+            List<WebElement> elements = SharedSD.getDriver().findElements(locator);
+            for (WebElement element : elements)
+                if (element.isDisplayed()) {
+                    System.out.println(element);
+                    break;
+                }
         } catch (NoSuchElementException e) {
             Assert.fail("Element is not found with this locator: " + locator.toString());
             e.printStackTrace();
@@ -119,16 +145,18 @@ public class BasePage {
     }
 
     //This method allows the chrome driver to wait.
-    public void waitFor(int millisecond) throws InterruptedException { Thread.sleep(millisecond); }
+    public void waitFor(int millisecond) throws InterruptedException {
+        Thread.sleep(millisecond);
+    }
 
     //This method allows the compare a files
     public void compareFiles(String filePath1, String filePath2) throws IOException {
         try {
             File file1 = new File(filePath1);
             File file2 = new File(filePath2);
-            FileUtils.contentEquals(file1,file2);
+            FileUtils.contentEquals(file1, file2);
         } catch (NoSuchElementException e) {
-            Assert.fail("No file found in this path: " + filePath1 + "and "+ filePath2);
+            Assert.fail("No file found in this path: " + filePath1 + "and " + filePath2);
             e.printStackTrace();
         }
     }
@@ -137,7 +165,7 @@ public class BasePage {
     public void injectTxtWithJS(WebElement element, String expectedText) {
         //WebElement element = webAction(locator);
         JavascriptExecutor js = (JavascriptExecutor) SharedSD.getDriver();
-        String command = String.format("arguments[0].value='%s';", expectedText );
+        String command = String.format("arguments[0].value='%s';", expectedText);
         js.executeScript(command, element);
     }
 
